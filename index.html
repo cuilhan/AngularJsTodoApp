@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todo" ng-controller="control">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartUpCode Todo App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-animate.js"></script>
+    <script>
+
+        var app = angular.module("todo",['ngAnimate']);
+        app.controller("control", function ($scope) {
+            $scope.buton=true;
+
+            $scope.listeler=[{'gorev':'angular js uygulmasi yap','sonuc':false},
+                {'gorev':'angular js uygulmasi yapma','sonuc':true}];
+            
+            $scope.ekle=function () {
+                $scope.listeler.push({'gorev':$scope.todo, 'sonuc':false});
+                $scope.todo="";
+            }
+            $scope.sil=function (a) {
+                $scope.listeler.splice(a,1);
+            }
+
+        });
+
+    </script>
+
+    <style>
+        li{
+            font-size: 15px;
+        }
+        .sonuc{
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .ng-enter{
+            transition: all 1s;
+            margin-left: 100px;
+        }
+        .ng-enter-active{
+            margin-left: 0px;
+        }
+        .ng-leave{
+            transition: all 1s;
+            margin-left: 10px;
+        }
+        .ng-leave-active{
+            margin-left: 100px;
+        }
+
+        .tasks{
+            width: 400px;
+            height: 250x;
+            background: #85926b;
+            color: #ccc;
+
+
+        }
+
+        .page{
+            list-style-type: none;
+
+        }
+        .pages{
+
+
+            float: left;
+            display: block;
+            background: #4f2e50;
+            color: #ecf0f1;
+            margin: 10px;
+            width: 80px;
+            height: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body ng-init="$scope.page=1">
+<div class="col-lg-6">
+    <div>
+        <center>SmartUpCode Todo uygulamasi</center>
+    </div>
+    <div class="input-group">
+        <input type="text" ng-model="todo" class="form-control" placeholder="Eklemek istediginiz gorevi giriniz" ng-keyup="buton=false"> <!-- $event.keyCode==13 ? ekle():null &&-->
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="ekle()" ng-disabled="buton || todo.length==0">Ekle</button>
+         </span>
+    </div>
+
+    <div class="input-group">
+        <input type="text" ng-model="arama" class="form-control" placeholder="Aramak istediginiz gorevi giriniz" ng-keyup="buton=false"> <!-- $event.keyCode==13 ? ekle():null &&-->
+        <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="ara()" ng-disabled="buton || todo.length==0">Ara</button>
+    </span>
+    </div>
+</div>
+
+</div>
+
+<div ng-show="$scope.page==1" class="tasks">
+    Butun gorevler
+    <ul>
+        <li ng-repeat="liste in listeler  | filter:arama">
+            <input type="checkbox" ng-model="liste.sonuc">
+            <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
+            <button ng-click="sil($index)">sil</button></li>
+    </ul>
+</div>
+
+<div ng-show="$scope.page==2" class="tasks">
+    Bitmis gorevler
+    <ul>
+        <li ng-repeat="liste in listeler | filter:{sonuc:true}">
+            <input type="checkbox" ng-model="liste.sonuc">
+            <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
+            <button ng-click="sil($index)">sil</button></li>
+    </ul>
+</div>
+
+<div ng-show="$scope.page==3" class="tasks">
+    Bitmemis gorevler
+    <ul>
+        <li ng-repeat="liste in listeler  | filter:{sonuc:false}">
+            <input type="checkbox" ng-model="liste.sonuc">
+            <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
+            <button ng-click="sil($index)">sil</button></li>
+    </ul>
+</div>
+
+<ul class="page">
+    <li class="pages" ng-click="$scope.page=1">Butun Gorevler</li>
+    <li class="pages"  ng-click="$scope.page=2">Bitmis Gorevler</li>
+    <li class="pages"  ng-click="$scope.page=3">Bitmemis gorevler</li>
+</ul>
+</body>
+</html>
