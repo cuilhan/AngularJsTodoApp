@@ -51,6 +51,11 @@
             margin-left: 100px;
         }
 
+        #container{
+            margin: auto;
+            height: auto;
+            width: 600px;
+        }
 
 
 
@@ -58,9 +63,10 @@
 
 </head>
 <body ng-init="$scope.page=1">
+<div id="container">
 
-    <div>
-        <center>SmartUpCode Todo uygulamasi</center>
+    <div class="bg-primary">
+      <h2>  <center>SmartUpCode Todo uygulamasi</center></h2>
     </div>
     <div class="input-group">
         <input type="text" ng-model="todo" class="form-control" placeholder="Eklemek istediginiz gorevi giriniz" ng-keyup="buton=false"> <!-- $event.keyCode==13 ? ekle():null &&-->
@@ -76,8 +82,15 @@
     </span>
     </div>
 </div>
+<div id="container">
+    <ul class="nav nav-pills">
+        <li role="presentation" ng-click="$scope.page=1"><a href="#">Butun Gorevler</a></li>
+        <li role="presentation"  ng-click="$scope.page=2"><a href="#">Bitmis Gorevler</a></li>
+        <li role="presentation"  ng-click="$scope.page=3"><a href="#">Bitmemis gorevler</a></li>
+    </ul>
+</div>
 
-<div ng-show="$scope.page==1" class="jumbotron">
+<div ng-show="$scope.page==1" class="jumbotron" id="container">
     <div class="alert alert-info" role="alert">  <center> <h4>Butun gorevler</h4></center></div>
 
 
@@ -89,7 +102,7 @@
     </ul>
 </div>
 
-<div ng-show="$scope.page==2" class="jumbotron">
+<div ng-show="$scope.page==2" class="jumbotron" id="container">
     <div class="alert alert-success" role="alert"><center><h4>Bitmis gorevler</h4></center></div>
 
     <ul class="list-group">
@@ -100,7 +113,7 @@
     </ul>
 </div>
 
-<div ng-show="$scope.page==3" class="jumbotron">
+<div ng-show="$scope.page==3" class="jumbotron" id="container">
     <div class="alert alert-danger" role="alert"><center><h4>Bitmemis gorevler</h4></center></div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="liste in listeler  | filter:{sonuc:false}">
@@ -110,11 +123,6 @@
     </ul>
 </div>
 
-
-<ul class="nav nav-pills">
-    <li role="presentation" ng-click="$scope.page=1"><a href="#">Butun Gorevler</a></li>
-    <li role="presentation"  ng-click="$scope.page=2"><a href="#">Bitmis Gorevler</a></li>
-    <li role="presentation"  ng-click="$scope.page=3"><a href="#">Bitmemis gorevler</a></li>
-</ul>
+</div>
 </body>
 </html>
