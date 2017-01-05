@@ -51,37 +51,14 @@
             margin-left: 100px;
         }
 
-        .tasks{
-            width: 400px;
-            height: 250x;
-            background: #85926b;
-            color: #ccc;
 
 
-        }
 
-        .page{
-            list-style-type: none;
-
-        }
-        .pages{
-
-
-            float: left;
-            display: block;
-            background: #4f2e50;
-            color: #ecf0f1;
-            margin: 10px;
-            width: 80px;
-            height: 50px;
-            text-align: center;
-            cursor: pointer;
-        }
     </style>
 
 </head>
 <body ng-init="$scope.page=1">
-<div class="col-lg-6">
+
     <div>
         <center>SmartUpCode Todo uygulamasi</center>
     </div>
@@ -100,42 +77,44 @@
     </div>
 </div>
 
-</div>
+<div ng-show="$scope.page==1" class="jumbotron">
+    <div class="alert alert-info" role="alert">  <center> <h4>Butun gorevler</h4></center></div>
 
-<div ng-show="$scope.page==1" class="tasks">
-    Butun gorevler
-    <ul>
-        <li ng-repeat="liste in listeler  | filter:arama">
+
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="liste in listeler  | filter:arama">
             <input type="checkbox" ng-model="liste.sonuc">
             <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
             <button ng-click="sil($index)">sil</button></li>
     </ul>
 </div>
 
-<div ng-show="$scope.page==2" class="tasks">
-    Bitmis gorevler
-    <ul>
-        <li ng-repeat="liste in listeler | filter:{sonuc:true}">
+<div ng-show="$scope.page==2" class="jumbotron">
+    <div class="alert alert-success" role="alert"><center><h4>Bitmis gorevler</h4></center></div>
+
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="liste in listeler | filter:{sonuc:true}">
             <input type="checkbox" ng-model="liste.sonuc">
             <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
             <button ng-click="sil($index)">sil</button></li>
     </ul>
 </div>
 
-<div ng-show="$scope.page==3" class="tasks">
-    Bitmemis gorevler
-    <ul>
-        <li ng-repeat="liste in listeler  | filter:{sonuc:false}">
+<div ng-show="$scope.page==3" class="jumbotron">
+    <div class="alert alert-danger" role="alert"><center><h4>Bitmemis gorevler</h4></center></div>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="liste in listeler  | filter:{sonuc:false}">
             <input type="checkbox" ng-model="liste.sonuc">
             <span ng-class="{'sonuc':liste.sonuc}">{{liste.gorev}}
             <button ng-click="sil($index)">sil</button></li>
     </ul>
 </div>
 
-<ul class="page">
-    <li class="pages" ng-click="$scope.page=1">Butun Gorevler</li>
-    <li class="pages"  ng-click="$scope.page=2">Bitmis Gorevler</li>
-    <li class="pages"  ng-click="$scope.page=3">Bitmemis gorevler</li>
+
+<ul class="nav nav-pills">
+    <li role="presentation" ng-click="$scope.page=1"><a href="#">Butun Gorevler</a></li>
+    <li role="presentation"  ng-click="$scope.page=2"><a href="#">Bitmis Gorevler</a></li>
+    <li role="presentation"  ng-click="$scope.page=3"><a href="#">Bitmemis gorevler</a></li>
 </ul>
 </body>
 </html>
